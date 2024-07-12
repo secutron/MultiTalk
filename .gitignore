@@ -1,2 +1,16 @@
 /MultiTalk_dataset/raw_video
 /MultiTalk_dataset/multitalk_dataset
+/base/__pycache__
+/utils/__pycache__
+/models/__pycache__
+/models/lib/__pycache__
+/metrics/__pycache__
+/dataset/__pycache__
+/demo/output
+/logs
+checkpoints/stage1.pth.tar
+checkpoints/stage2.pth.tar
+checkpoints/templates.pkl
+checkpoints/FLAME_sample.ply
+.vscode/settings.json
+.vscode/launch.json

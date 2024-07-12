@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 import os
+
+import sys
+cwd = os.getcwd()
+print(cwd)
+sys.path.append(cwd)
+
 import time
 import torch
 import torch.backends.cudnn as cudnn
@@ -22,6 +28,17 @@ cv2.setNumThreads(0)
 import wandb
 def main():
     args = get_parser()
+    
+    # MultiTalk_s1 config/multi/stage1.yaml multi s1
+    # exp_name=$1
+    # config=$2
+    # dataset=$3
+    # stage=$4    
+    # # exp_dir=logs/${dataset}/${exp_name}
+    args.save_path = "logs/multi/MultiTalk_s1"
+    
+    
+    
     os.environ["CUDA_VISIBLE_DEVICES"] = ','.join(str(x) for x in args.train_gpu)
     cudnn.benchmark = True
 

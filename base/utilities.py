@@ -14,6 +14,16 @@ def get_parser():
     parser.add_argument('opts', help=' ', default=None,
                         nargs=argparse.REMAINDER)
     args = parser.parse_args()
+    
+    
+    # demo
+    # args.config = "config/multi/demo.yaml"
+    
+    # train s1
+    args.config = "config/multi/stage1.yaml"
+    
+    
+    
     assert args.config is not None
     cfg = config.load_cfg_from_cfg_file(args.config)
     if args.opts is not None:

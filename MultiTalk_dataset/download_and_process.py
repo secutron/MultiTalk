@@ -9,6 +9,10 @@ import shutil
 import subprocess
 
 def downloadYouTube(yt, videourl, path):
+    
+    for e in yt.streams.filter(file_extension='mp4').all():
+        print(str(e))
+    
     video_stream = yt.streams.filter(progressive=False, file_extension='mp4').order_by('resolution').desc().first()
     audio_stream = yt.streams.filter(only_audio=True).order_by('abr').desc().first()
     if video_stream.fps >= 25:
@@ -113,6 +117,14 @@ if __name__ == '__main__':
     parser.add_argument('--language', type=str, default="dutch", help='Language')
     args = parser.parse_args()
 
+    args.language = "arabic"
+    
+    import os, sys
+    print(os.getcwd())
+    print(os.chdir(r"/root/code01/MultiTalk/MultiTalk_dataset"))
+    print(os.getcwd())
+    
+    
     # you can change the root folder
     root = './'
     processed_vid_root = os.path.join(root, 'multitalk_dataset') # processed video path
@@ -123,6 +135,11 @@ if __name__ == '__main__':
     json_path = os.path.join('./annotations', f'{args.language}.json')  # json file path
 
     for vid_id, save_vid_name, time, bbox, language in load_data(json_path):
+        
+        # 240710 by hkim - add
+        print(save_vid_name)
+        
+        
         processed_vid_dir = os.path.join(processed_vid_root, language)
         raw_vid_dir = os.path.join(raw_vid_root, language)
         raw_vid_path = os.path.join(raw_vid_dir, vid_id + ".mp4")
@@ -131,9 +148,9 @@ if __name__ == '__main__':
         os.makedirs(raw_vid_dir, exist_ok=True)
 
         url = 'https://www.youtube.com/watch?v='+vid_id
-        success = True
+        success = False
         if not os.path.isfile(raw_vid_path) :
-            while True:
+            # while True:
                 try:
                     yt = YouTube(url, use_oauth=True)
                     success = downloadYouTube(yt, url, raw_vid_dir)
